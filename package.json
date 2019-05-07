@@ -1,0 +1,32 @@
+{
+  "name": "node-impressora-termica",
+  "version": "1.0.0",
+  "description": "Módulo Node.js para integrar aplicações web (Javascript) com impressora (EPSON) local (USB)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maurelyo/node-impressora-termica.git"
+  },
+  "keywords": [
+    "Impressora",
+    "Térmica",
+    "Termica",
+    "Integração",
+    "USB",
+    "JAVASCRIPT",
+    "Node"
+  ],
+  "author": "Lience Software",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maurelyo/node-impressora-termica/issues"
+  },
+  "homepage": "https://github.com/maurelyo/node-impressora-termica#readme",
+  "dependencies": {
+    "node-thermal-printer": "^4.0.3",
+    "socket.io": "^2.2.0"
+  }
+}
