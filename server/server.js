@@ -15,20 +15,17 @@ let printer = new ThermalPrinter({
 });
 
 app.start = function () {
+    // start the web server
     let server = http.createServer(app);
-
-    // Start web server
-    server.listen(app.get('port'), function () {
+    return server.listen(app.get('port'), function() {
         app.emit('started');
-        // let baseUrl = 'http://' + app.get('host') + ':' + app.get('port');
-        let baseUrl = 'http://' + '192.168.86.29' + ':' + app.get('port');
+        let baseUrl = app.get('protocol') + app.get('host').replace(/\/$/, '') + ':' + app.get('port');
         console.log('Web server listening at: %s', baseUrl);
         if (app.get('loopback-component-explorer')) {
             let explorerPath = app.get('loopback-component-explorer').mountPath;
             console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
         }
     });
-    return server;
 };
 
 // Bootstrap the application, configure models, datasources and middleware.
@@ -38,14 +35,11 @@ boot(app, __dirname, function (err) {
 
     // start the server if `$ node server.js`
     if (require.main === module) {
-        //app.start();
         console.log('---------- subindo socket io');
         app.io = require("socket.io")(app.start());
         console.log('---------- subindo socket io');
 
-
         app.io.on("connection", function (socket) {
-
             socket.on('imprimir', function(conteudo) {
                 printer.alignCenter();
                 printer.println("Hello world");

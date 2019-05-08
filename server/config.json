@@ -1,0 +1,23 @@
+{
+  "restApiRoot": "/api",
+  "host": "192.168.86.29",
+  "port": 8008,
+  "protocol": "http://",
+  "remoting": {
+    "context": false,
+    "rest": {
+      "handleErrors": false,
+      "normalizeHttpPath": false,
+      "xml": false
+    },
+    "json": {
+      "strict": false,
+      "limit": "100kb"
+    },
+    "urlencoded": {
+      "extended": true,
+      "limit": "100kb"
+    },
+    "cors": false
+  }
+}

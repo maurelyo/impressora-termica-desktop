@@ -1,14 +1,15 @@
 {
   "name": "node-impressora-termica",
   "version": "1.0.0",
-  "description": "Módulo Node.js para integrar aplicações web (Javascript) com impressora (EPSON) local (USB)",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=6"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maurelyo/node-impressora-termica.git"
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node .",
+    "posttest": "npm run lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "Impressora",
@@ -20,15 +21,30 @@
     "Node"
   ],
   "author": "Lience Software",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/maurelyo/node-impressora-termica/issues"
   },
   "homepage": "https://github.com/maurelyo/node-impressora-termica#readme",
   "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "helmet": "^3.10.0",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^3.0.0",
+    "loopback-component-explorer": "^6.2.0",
     "loopback": "^3.25.1",
     "loopback-boot": "^2.28.0",
     "node-thermal-printer": "^4.0.3",
     "socket.io": "^2.2.0"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maurelyo/node-impressora-termica.git"
+  },
+  "license": "UNLICENSED",
+  "description": "Módulo Node.js para integrar aplicações web (Javascript) com impressora (EPSON) local (USB)"
 }
