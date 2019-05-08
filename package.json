@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/maurelyo/node-impressora-termica#readme",
   "dependencies": {
+    "loopback": "^3.25.1",
+    "loopback-boot": "^2.28.0",
     "node-thermal-printer": "^4.0.3",
     "socket.io": "^2.2.0"
   }
