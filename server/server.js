@@ -2,17 +2,22 @@
 
 let loopback = require('loopback');
 let boot = require('loopback-boot');
-
 let http = require("http");
 let app = module.exports = loopback();
 
 const ThermalPrinter = require("node-thermal-printer").printer;
 const PrinterTypes = require("node-thermal-printer").types;
 
+// Configuracao da impressora
+let printer = new ThermalPrinter({
+    type: PrinterTypes.EPSON,   // FABRICANTE DA IMPRESSORA
+    interface: '\\\\.\\LPT2'    // PORTA VIRTUAL LOCAL
+});
+
 app.start = function () {
     let server = http.createServer(app);
 
-    // start the web server
+    // Start web server
     server.listen(app.get('port'), function () {
         app.emit('started');
         // let baseUrl = 'http://' + app.get('host') + ':' + app.get('port');
@@ -25,27 +30,6 @@ app.start = function () {
     });
     return server;
 };
-
-app.get('/', function(req, res){
-
-
-    let printer = new ThermalPrinter({
-        type: PrinterTypes.EPSON,
-        interface: '\\\\.\\LPT2'
-    });
-
-    printer.alignCenter();
-    printer.println("Hello world");
-    // await printer.printImage('./assets/olaii-logo-black.png')
-    printer.cut();
-
-    try {
-        let execute = printer.execute()
-        console.error("Print done!");
-    } catch (error) {
-        console.log("Print failed:", error);
-    }
-});
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
@@ -62,7 +46,19 @@ boot(app, __dirname, function (err) {
 
         app.io.on("connection", function (socket) {
 
-            console.log('an user connected');
+            socket.on('imprimir', function(conteudo) {
+                printer.alignCenter();
+                printer.println("Hello world");
+                // await printer.printImage('./assets/olaii-logo-black.png')
+                printer.cut();
+
+                try {
+                    let execute = printer.execute()
+                    console.error("Print done!");
+                } catch (error) {
+                    console.log("Print failed:", error);
+                }
+            })
         });
     }
 });
