@@ -42,7 +42,7 @@ boot(app, __dirname, function (err) {
         app.io.on("connection", function (socket) {
             socket.on('imprimir', function(conteudo) {
                 printer.alignCenter();
-                printer.println("Hello world");
+                printer.println(conteudo);
                 // await printer.printImage('./assets/olaii-logo-black.png')
                 printer.cut();
 
