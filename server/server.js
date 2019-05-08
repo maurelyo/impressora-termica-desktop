@@ -28,31 +28,29 @@ app.start = function () {
     });
 };
 
+app.post("/", function(req, res) {
+    let params = req.body;
+
+    printer.alignCenter();
+    printer.println(params.conteudo);
+    // await printer.printImage('./assets/olaii-logo-black.png')
+    printer.cut();
+
+    try {
+        let execute = printer.execute()
+        console.error("Print done!");
+    } catch (error) {
+        console.log("Print failed:", error);
+    }
+});
+
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
 boot(app, __dirname, function (err) {
     if (err) throw err;
 
     // start the server if `$ node server.js`
-    if (require.main === module) {
-        console.log('---------- subindo socket io');
+    if (require.main === module)
         app.io = require("socket.io")(app.start());
-        console.log('---------- subindo socket io');
-
-        app.io.on("connection", function (socket) {
-            socket.on('imprimir', function(conteudo) {
-                printer.alignCenter();
-                printer.println(conteudo);
-                // await printer.printImage('./assets/olaii-logo-black.png')
-                printer.cut();
-
-                try {
-                    let execute = printer.execute()
-                    console.error("Print done!");
-                } catch (error) {
-                    console.log("Print failed:", error);
-                }
-            })
-        });
-    }
+    if (err) throw err;
 });
