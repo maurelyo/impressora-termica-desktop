@@ -33,11 +33,11 @@ app.post("/", function(req, res) {
 
     printer.alignCenter();
     printer.println(params.conteudo);
-    // await printer.printImage('./assets/olaii-logo-black.png')
+
     printer.cut();
 
     try {
-        let execute = printer.execute()
+        let execute = printer.execute();
         console.error("Print done!");
     } catch (error) {
         console.log("Print failed:", error);
