@@ -10,8 +10,9 @@ const PrinterTypes = require("node-thermal-printer").types;
 
 // Configuracao da impressora
 let printer = new ThermalPrinter({
-    type: PrinterTypes.EPSON,   // FABRICANTE DA IMPRESSORA
-    interface: '\\\\.\\LPT2'    // PORTA VIRTUAL LOCAL
+    type: PrinterTypes.EPSON,       // FABRICANTE DA IMPRESSORA
+    interface: '\\\\.\\LPT2',       // PORTA VIRTUAL LOCAL
+    removeSpecialCharacters: true
 });
 
 app.start = function () {
@@ -32,15 +33,22 @@ app.post("/", function(req, res) {
     let params = req.body;
 
     printer.alignCenter();
-    printer.println(params.conteudo);
+    printer.print(params.conteudo);
 
     printer.cut();
 
     try {
         let execute = printer.execute();
-        console.error("Print done!");
+
+        execute.then(() => {
+            console.log("Print done!");
+            console.log(params.conteudo);
+            res.end();
+        });
     } catch (error) {
-        console.log("Print failed:", error);
+
+        res.end();
+        console.error("Print failed:", error);
     }
 });
 
