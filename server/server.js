@@ -5,6 +5,7 @@ let boot = require('loopback-boot');
 let http = require("http");
 let app = module.exports = loopback();
 let EventLogger = require('node-windows').EventLogger;
+let wincmd = require('node-windows');
 
 const ThermalPrinter = require("node-thermal-printer").printer;
 const PrinterTypes = require("node-thermal-printer").types;
@@ -41,6 +42,14 @@ app.post("/", function(req, res) {
         printer.cut();
 
         printer.execute().then(() => {
+            wincmd.list(function (svc) {
+                svc.map((fila) => {
+                    log.info(fila);
+                    wincmd.kill(fila.PID, function () {
+                        log.info('Processo removido com sucesso.')
+                    })
+                })
+            });
             log.info('Impressao realizada com sucesso.');
             res.end();
         });
