@@ -10,7 +10,8 @@
     "start": "node .",
     "posttest": "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install-windows": "node install.js"
+    "install-windows": "node install.js",
+    "uninstall-windows": "node uninstall.js"
   },
   "keywords": [
     "Impressora",

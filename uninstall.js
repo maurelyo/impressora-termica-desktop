@@ -7,10 +7,10 @@ let svc = new Service({
     script: require('path').join(__dirname, 'server/server.js')
 });
 
-// Listen for the "install" event, which indicates the
+// Listen for the "uninstall" event, which indicates the
 // process is available as a service.
-svc.on('install',function(){
-    svc.start();
+svc.on('uninstall',function(){
+    console.log('Desinstalacao realizada com sucesso!')
 });
 
-svc.install();
+svc.uninstall();
