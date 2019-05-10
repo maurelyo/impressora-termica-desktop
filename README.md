@@ -1,2 +1,2 @@
 # node-impressora-termica
-Node.js module para integrar aplicações web (Javascript) com impressora (EPSON) local (USB).
+Módulo Node.js para integrar aplicações web (Javascript) com impressora térmica (EPSON) local (USB) configurada no Windows.
