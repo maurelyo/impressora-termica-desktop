@@ -4,9 +4,7 @@ let Service = require('node-windows').Service;
 let svc = new Service({
     name:'LienceSoft - Impressora',
     description: 'Serviço Node.js para integrar aplicações web com impressora local.',
-    script: require('path').join(__dirname, 'server/server.js'),
-    wait: 2,
-    grow: .5
+    script: require('path').join(__dirname, 'server/server.js')
 });
 
 // Listen for the "install" event, which indicates the
