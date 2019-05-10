@@ -33,10 +33,22 @@ app.start = function () {
     });
 };
 
+let cache = [];
 app.post("/", function(req, res) {
     let params = req.body;
 
     try {
+        let dt = new Date();
+        dt.setSeconds(dt.getSeconds() - 30);
+        let elem = cache.find(function(elem) {
+            return elem.id === params.id && elem.date > dt
+        });
+        if (elem) {
+            res.end();
+            return;
+        }
+        cache.push({id: params.id, date: new Date()});
+
         printer.alignCenter();
         printer.print(params.conteudo);
         printer.cut();
