@@ -35,21 +35,17 @@ app.start = function () {
 app.post("/", function(req, res) {
     let params = req.body;
 
-    printer.alignCenter();
-    printer.print(params.conteudo);
-    printer.cut();
-
     try {
-        let execute = printer.execute();
-        execute.then(() => {
-            console.log(params.conteudo);
-            console.log("Impressao realizada com sucesso!");
+        printer.alignCenter();
+        printer.print(params.conteudo);
+        printer.cut();
+
+        printer.execute().then(() => {
             log.info('Impressao realizada com sucesso.');
             res.end();
         });
     } catch (error) {
         log.error('Falha ao imprimir: ', error);
-        console.error("Falha ao imprimir:", error);
         res.end();
     }
 });
