@@ -4,7 +4,6 @@ let loopback = require('loopback');
 let boot = require('loopback-boot');
 let http = require("http");
 let app = module.exports = loopback();
-let Service = require('node-windows').Service;
 let EventLogger = require('node-windows').EventLogger;
 
 const ThermalPrinter = require("node-thermal-printer").printer;
@@ -15,13 +14,6 @@ let printer = new ThermalPrinter({
     type: PrinterTypes.EPSON,       // FABRICANTE DA IMPRESSORA
     interface: '\\\\.\\LPT2',       // PORTA VIRTUAL LOCAL
     removeSpecialCharacters: true
-});
-
-// Criando um novo Servico windows
-let svc = new Service({
-    name:'LienceSoft - Impressora',
-    description: 'Serviço Node.js para integrar aplicações web com impressora local.',
-    script: require('path').join(__dirname, 'server.js')
 });
 // Log do Windows
 let log = new EventLogger('LienceSoft - Impressora');
@@ -72,11 +64,3 @@ boot(app, __dirname, function (err) {
         app.io = require("socket.io")(app.start());
     if (err) throw err;
 });
-
-// Listen for the "install" event, which indicates the
-// process is available as a service.
-svc.on('install',function(){
-    svc.start();
-});
-
-svc.install();
