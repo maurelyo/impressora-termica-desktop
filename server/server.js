@@ -5,7 +5,6 @@ let boot = require('loopback-boot');
 let http = require("http");
 let app = module.exports = loopback();
 let EventLogger = require('node-windows').EventLogger;
-let wincmd = require('node-windows');
 
 const ThermalPrinter = require("node-thermal-printer").printer;
 const PrinterTypes = require("node-thermal-printer").types;
@@ -33,38 +32,18 @@ app.start = function () {
     });
 };
 
-let cache = [];
 app.post("/", function(req, res) {
     let params = req.body;
 
     try {
-        let dt = new Date();
-        dt.setSeconds(dt.getSeconds() - 30);
-        let elem = cache.find(function(elem) {
-            return elem.id === params.id && elem.date > dt
-        });
-        if (elem) {
-            res.end();
-            return;
-        }
-        cache.push({id: params.id, date: new Date()});
-
         printer.alignCenter();
         printer.print(params.conteudo);
         printer.cut();
 
         printer.execute().then(() => {
-            wincmd.list(function (svc) {
-                svc.map((fila) => {
-                    log.info(fila);
-                    wincmd.kill(fila.PID, function () {
-                        log.info('Processo removido com sucesso.')
-                    })
-                })
-            });
-            log.info('Impressao realizada com sucesso.');
             res.end();
         });
+        printer.clear();
     } catch (error) {
         log.error('Falha ao imprimir: ', error);
         res.end();
