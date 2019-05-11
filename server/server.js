@@ -36,7 +36,7 @@ app.post("/", function(req, res) {
     let params = req.body;
 
     try {
-        printer.alignCenter();
+        printer.alignLeft();
         printer.print(params.conteudo);
         printer.cut();
 
