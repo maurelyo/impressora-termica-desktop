@@ -37,7 +37,7 @@
     "node-thermal-printer": "^4.0.3",
     "node-windows": "^0.1.14",
     "serve-favicon": "^2.0.1",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "strong-error-handler": "^3.0.0"
   },
   "devDependencies": {
